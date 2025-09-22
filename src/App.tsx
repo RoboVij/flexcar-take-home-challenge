@@ -3,6 +3,7 @@ import "./App.css";
 import SearchBar from "./components/SearchBar";
 import type { Vehicle } from "./types";
 import { VEHICLES } from "./data/vehicles";
+import VehicleCard from "./components/VehicleCard";
 
 function App() {
   const [zip, setZip] = useState("");
@@ -54,7 +55,7 @@ function App() {
               ) : (
                 <div className="grid">
                   {results.map((v) => (
-                    <p key={v.id}>{v.make}</p>
+                    <VehicleCard key={v.id} vehicle={v} />
                   ))}
                 </div>
               )}
