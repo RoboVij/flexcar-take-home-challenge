@@ -129,7 +129,13 @@
   margin-left: auto;
 }
 .color-swatch-others {
-  background: linear-gradient(90deg, #e0e0e0 0%, #bdbdbd 50%, #757575 100%);
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #e900ec,
+    #00ffcd 127.79999613761902deg,
+    #4249ff 248.39999914169312deg,
+    #e900ec
+  );
   width: 18px;
   height: 18px;
   border-radius: 50%;

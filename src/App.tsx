@@ -4,8 +4,8 @@ import type { Vehicle } from "./types";
 import SearchBar from "./components/SearchBar";
 import FilterPanel, { type FilterState } from "./components/FilterPanel";
 import VehicleCard from "./components/VehicleCard";
-import { isValidZip } from "./utils/validation";
 import SortDropdown from "./components/SortDropdown";
+import { isValidZip } from "./utils/validation";
 import styles from "./App.module.css";
 
 export default function App() {
@@ -69,7 +69,7 @@ export default function App() {
   }, [zipResults, filters, sortBy]);
 
   return (
-    <div className={styles["app"] + " light"}>
+    <div className={styles["app"]}>
       <header className={styles["header"]} role="banner">
         <div className={styles["header-left"]}>
           <h1 className={styles["logo"]}>FLEXCAR</h1>
