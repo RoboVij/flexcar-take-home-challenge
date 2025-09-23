@@ -24,13 +24,18 @@ export default function App() {
       return;
     }
     setSearchZip(enteredZip);
-    setFilters({});
     setSortBy("");
   };
 
-  const results = useMemo<Vehicle[]>(() => {
+  const zipResults = useMemo<Vehicle[]>(() => {
     if (!searchZip) return [];
-    let list = VEHICLES.filter((v) => v.zip === searchZip);
+    const list = VEHICLES.filter((v) => v.zip === searchZip);
+
+    return list;
+  }, [searchZip]);
+
+  const results = useMemo<Vehicle[]>(() => {
+    let list = zipResults;
 
     if (filters.make?.length)
       list = list.filter((v) => filters.make!.includes(v.make));
@@ -45,7 +50,7 @@ export default function App() {
       list = list.slice().sort((a, b) => a.model.localeCompare(b.model));
 
     return list;
-  }, [searchZip, filters, sortBy]);
+  }, [zipResults, filters, sortBy]);
 
   return (
     <div className="app light">
@@ -59,7 +64,6 @@ export default function App() {
         </div>
       </header>
 
-      {/* RESULTS TOP: moved one layer up (outside of sidebar/results body) */}
       {searchZip && (
         <div className="results-top" aria-hidden={false}>
           <h2 className="results-title">
@@ -78,7 +82,7 @@ export default function App() {
             vehicles={VEHICLES}
             filters={filters}
             setFilters={setFilters}
-            results={results}
+            results={zipResults}
             searchZip={searchZip}
           />
         </aside>

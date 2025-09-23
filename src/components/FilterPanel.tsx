@@ -92,8 +92,16 @@ export default function FilterPanel({
 
   return (
     <div className="filter-panel">
-      <h2 className="filter-panel-title">Filters</h2>
-      {/* chips inside panel */}
+      <div className="filter-panel-header">
+        <h2 className="filter-panel-title">Filters</h2>
+        <button
+          className="clear-all"
+          onClick={() => setFilters({})}
+          aria-label="Clear all filters"
+        >
+          Clear all
+        </button>
+      </div>
       <FilterChips filters={filters} setFilters={setFilters} />
 
       <div className={`accordion-section ${openSections.make ? "open" : ""}`}>
@@ -111,23 +119,12 @@ export default function FilterPanel({
             viewBox="0 0 24 24"
             className="chev"
           >
-            {openSections.make ? (
-              // Up arrow
-              <path
-                d="M7 14l5-5 5 5"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-              />
-            ) : (
-              // Down arrow
-              <path
-                d="M7 10l5 5 5-5"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-              />
-            )}
+            <path
+              d="M7 10l5 5 5-5"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+            />
           </svg>
         </button>
 
@@ -150,7 +147,7 @@ export default function FilterPanel({
                     />
                     <span className="label-text">
                       {name}
-                      {searchZip && count > 0 ? ` (${count})` : ""}
+                      {searchZip ? ` (${count})` : ""}
                     </span>
                   </label>
                 </li>
@@ -175,23 +172,12 @@ export default function FilterPanel({
             viewBox="0 0 24 24"
             className="chev"
           >
-            {openSections.color ? (
-              // Up arrow
-              <path
-                d="M7 14l5-5 5 5"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-              />
-            ) : (
-              // Down arrow
-              <path
-                d="M7 10l5 5 5-5"
-                stroke="currentColor"
-                strokeWidth="2"
-                fill="none"
-              />
-            )}
+            <path
+              d="M7 10l5 5 5-5"
+              stroke="currentColor"
+              strokeWidth="2"
+              fill="none"
+            />
           </svg>
         </button>
 
@@ -205,23 +191,8 @@ export default function FilterPanel({
               const id = `color-${slugify(name)}`;
               return (
                 <li key={name}>
-                  <label
-                    htmlFor={id}
-                    className="color-label"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      width: "100%",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.5em",
-                      }}
-                    >
+                  <label htmlFor={id} className="color-label color-label-main">
+                    <div className="color-label-flex">
                       <input
                         id={id}
                         type="checkbox"
@@ -234,12 +205,9 @@ export default function FilterPanel({
                       </span>
                     </div>
                     <span
-                      className="color-swatch"
+                      className="color-swatch color-swatch-main"
                       aria-hidden
-                      style={{
-                        background: COLORS[name] ?? "#ccc",
-                        marginLeft: "auto",
-                      }}
+                      style={{ background: COLORS[name] ?? "#ccc" }}
                     />
                   </label>
                 </li>
@@ -247,22 +215,8 @@ export default function FilterPanel({
             })}
             {colors.others.length > 0 && (
               <li key="others">
-                <label
-                  className="color-label"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    width: "100%",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.5em",
-                    }}
-                  >
+                <label className="color-label color-label-others">
+                  <div className="color-label-flex">
                     <input
                       id="color-others"
                       type="checkbox"
@@ -292,18 +246,12 @@ export default function FilterPanel({
                         : ""}
                     </span>
                   </div>
-                  <div style={{ display: "flex", gap: "0.25em" }}>
+                  <div className="color-label-others-row">
                     {colors.others.map(({ name }) => (
                       <span
                         key={name}
-                        className="color-swatch"
+                        className="color-swatch color-swatch-others"
                         aria-hidden
-                        style={{
-                          background: "#ccc",
-                          width: 18,
-                          height: 18,
-                          borderRadius: "50%",
-                        }}
                         title={name}
                       />
                     ))}

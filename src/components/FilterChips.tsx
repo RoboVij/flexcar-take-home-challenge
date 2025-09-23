@@ -32,14 +32,6 @@ export default function FilterChips({ filters, setFilters }: Props) {
           </button>
         </span>
       ))}
-
-      <button
-        className="clear-all"
-        onClick={() => setFilters({})}
-        aria-label="Clear all filters"
-      >
-        Clear all
-      </button>
     </div>
   );
 }
