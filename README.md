@@ -32,7 +32,7 @@ This repo is a complete React + TypeScript + Vite frontend implementing the take
 1. Clone the project:
 
 ```bash
-git clone [repo_name]
+git clone https://github.com/RoboVij/flexcar-take-home-challenge.git
 ```
 
 2. Install dependencies:
