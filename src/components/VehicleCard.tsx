@@ -1,5 +1,8 @@
 import type { Vehicle } from "../types";
 
+const PLACEHOLDER =
+  "https://placehold.co/800x450?text=No+Image&bg=efefef&fg=6b7280";
+
 const currency = (n: number) =>
   n.toLocaleString(undefined, {
     style: "currency",
@@ -7,30 +10,37 @@ const currency = (n: number) =>
     maximumFractionDigits: 0,
   });
 
-const VehicleCard: React.FC<{ vehicle: Vehicle }> = ({ vehicle }) => {
+export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   return (
     <article
       className="vehicle-card"
-      aria-label={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+      role="listitem"
+      aria-labelledby={`title-${vehicle.id}`}
     >
-      <div className="vehicle-image">
-        <img src={vehicle.imageUrl} alt={`${vehicle.make} ${vehicle.model}`} />
+      <div className="vehicle-image" aria-hidden="true">
+        <img
+          src={vehicle.imageUrl}
+          alt={`${vehicle.make} ${vehicle.model}`}
+          onError={(e) => {
+            // replace broken images with a placeholder
+            (e.currentTarget as HTMLImageElement).src = PLACEHOLDER;
+            (e.currentTarget as HTMLImageElement).alt = "No image available";
+          }}
+        />
       </div>
+
       <div className="vehicle-info">
-        <h3>
+        <h3 id={`title-${vehicle.id}`}>
           {vehicle.year} {vehicle.make} {vehicle.model}
         </h3>
-        <p className="trim">{vehicle.trim ?? ""}</p>
-        <p>
-          <strong>Color:</strong> {vehicle.color}
+
+        <p className="meta">
+          {vehicle.trim ?? ""} · {vehicle.mileage.toLocaleString()} miles ·{" "}
+          {vehicle.color}
         </p>
-        <p>
-          <strong>Mileage:</strong> {vehicle.mileage.toLocaleString()} miles
-        </p>
+
         <p className="price">{currency(vehicle.price)}</p>
       </div>
     </article>
   );
-};
-
-export default VehicleCard;
+}

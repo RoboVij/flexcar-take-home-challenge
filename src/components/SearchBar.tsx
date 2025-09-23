@@ -1,37 +1,38 @@
 import { useState } from "react";
 
-interface SearchProps {
+interface Props {
   onSearch: (zip: string) => void;
 }
 
-const SearchBar: React.FC<SearchProps> = ({ onSearch }) => {
+export default function SearchBar({ onSearch }: Props) {
   const [zip, setZip] = useState("");
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSearch(zip.trim());
-  };
 
   return (
     <form
       className="search-bar"
-      onSubmit={(e) => handleSubmit(e)}
-      aria-label="ZIP search form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSearch(zip.trim());
+      }}
+      role="search"
+      aria-label="Search by ZIP code"
     >
-      <label htmlFor="zip">ZIP code</label>
+      <label htmlFor="zip" className="visually-hidden">
+        ZIP code
+      </label>
       <input
         id="zip"
-        type="text"
+        name="zip"
+        placeholder="ZIP (e.g. 10001)"
         value={zip}
         onChange={(e) => setZip(e.target.value)}
         inputMode="numeric"
         pattern="\d*"
+        aria-label="ZIP code"
       />
-      <button type="submit" className="primary">
+      <button type="submit" className="primary" aria-label="Search">
         Search
       </button>
     </form>
   );
-};
-
-export default SearchBar;
+}

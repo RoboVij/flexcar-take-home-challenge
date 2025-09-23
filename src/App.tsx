@@ -1,30 +1,17 @@
 import { useMemo, useState } from "react";
-import "./App.css";
-import SearchBar from "./components/SearchBar";
-import type { Vehicle } from "./types";
 import { VEHICLES } from "./data/vehicles";
+import type { Vehicle } from "./types";
+import SearchBar from "./components/SearchBar";
+import FilterPanel, { type FilterState } from "./components/FilterPanel";
 import VehicleCard from "./components/VehicleCard";
-import Filters from "./components/Filters";
-import { isValidZip } from "./utils.ts/validation";
+import { isValidZip } from "./utils/validation";
+import SortDropdown from "./components/SortDropdown";
 
-function uniqueSorted<T>(arr: T[], keyFn: (a: T) => string) {
-  return Array.from(new Set(arr.map(keyFn))).sort();
-}
-
-function App() {
-  const [zip, setZip] = useState("");
-  const [searchZip, setSearchZip] = useState("");
-  const [error, setError] = useState("");
-  const [selectedMake, setSelectedMake] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
-  const [sortBy, setSortBy] = useState("");
-
-  const makes = useMemo(() => {
-    return uniqueSorted(VEHICLES, (v) => v.make);
-  }, []);
-  const colors = useMemo(() => {
-    return uniqueSorted(VEHICLES, (v) => v.color);
-  }, []);
+export default function App() {
+  const [searchZip, setSearchZip] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [filters, setFilters] = useState<FilterState>({});
+  const [sortBy, setSortBy] = useState<string>("");
 
   const onSearch = (enteredZip: string) => {
     setError("");
@@ -37,88 +24,94 @@ function App() {
       return;
     }
     setSearchZip(enteredZip);
-    setZip(enteredZip);
-    // reset filters on new search
-    setSelectedMake("");
-    setSelectedColor("");
+    setFilters({});
     setSortBy("");
   };
 
   const results = useMemo<Vehicle[]>(() => {
     if (!searchZip) return [];
     let list = VEHICLES.filter((v) => v.zip === searchZip);
-    if (selectedMake) {
-      list = list.filter((v) => v.make === selectedMake);
-    }
-    if (selectedColor) {
-      list = list.filter((v) => v.color === selectedColor);
-    }
-    if (sortBy === "price-high") {
+
+    if (filters.make?.length)
+      list = list.filter((v) => filters.make!.includes(v.make));
+    if (filters.color?.length)
+      list = list.filter((v) => filters.color!.includes(v.color));
+
+    if (sortBy === "price-high")
       list = list.slice().sort((a, b) => b.price - a.price);
-    } else if (sortBy === "price-low") {
+    else if (sortBy === "price-low")
       list = list.slice().sort((a, b) => a.price - b.price);
-    } else if (sortBy === "model") {
+    else if (sortBy === "model")
       list = list.slice().sort((a, b) => a.model.localeCompare(b.model));
-    }
+
     return list;
-  }, [searchZip, selectedMake, selectedColor, sortBy]);
+  }, [searchZip, filters, sortBy]);
 
   return (
-    <div className="app">
-      <header className="header">
-        <h1>Vehicle Inventory</h1>
-        <p className="subtitle">Search available vehicles by ZIP code</p>
+    <div className="app light">
+      <header className="header" role="banner">
+        <div className="header-left">
+          <h1 className="logo">FLEXCAR</h1>
+        </div>
+
+        <div className="header-right">
+          <SearchBar onSearch={onSearch} />
+        </div>
       </header>
 
-      <main>
-        <section className="search-section">
-          <SearchBar onSearch={onSearch} />
+      {/* RESULTS TOP: moved one layer up (outside of sidebar/results body) */}
+      {searchZip && (
+        <div className="results-top" aria-hidden={false}>
+          <h2 className="results-title">
+            {`Results for ${searchZip} (${results.length})`}
+          </h2>
+
+          <div className="results-top-actions">
+            <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
+          </div>
+        </div>
+      )}
+
+      <main className="layout" role="main">
+        <aside className="sidebar" aria-label="Filters">
+          <FilterPanel
+            vehicles={VEHICLES}
+            filters={filters}
+            setFilters={setFilters}
+            results={results}
+            searchZip={searchZip}
+          />
+        </aside>
+
+        <section className="results" aria-live="polite">
           {error && (
             <div className="error" role="alert">
               {error}
             </div>
           )}
-        </section>
 
-        <section className="filters-section">
-          <Filters
-            makes={makes}
-            colors={colors}
-            selectedMake={selectedMake}
-            selectedColor={selectedColor}
-            sortBy={sortBy}
-            onMakeChange={setSelectedMake}
-            onColorChange={setSelectedColor}
-            onSortChange={setSortBy}
-          />
-        </section>
-
-        <section className="results-section">
-          {searchZip ? (
-            <>
-              <h2>Results for {searchZip}</h2>
-              {results.length === 0 ? (
+          <div className="results-body">
+            {searchZip ? (
+              results.length === 0 ? (
                 <div className="empty" role="status">
                   No vehicles found for ZIP {searchZip} with the selected
                   filters.
                 </div>
               ) : (
-                <div className="grid">
+                <div className="grid" role="list">
                   {results.map((v) => (
                     <VehicleCard key={v.id} vehicle={v} />
                   ))}
                 </div>
-              )}
-            </>
-          ) : (
-            <div className="callout">
-              Enter a ZIP code above to find vehicles near you.
-            </div>
-          )}
+              )
+            ) : (
+              <div className="callout">
+                Enter a ZIP code above to find vehicles near you.
+              </div>
+            )}
+          </div>
         </section>
       </main>
     </div>
   );
 }
-
-export default App;
