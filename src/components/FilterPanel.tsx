@@ -4,6 +4,7 @@ import FilterChips from "./FilterChips";
 import styles from "./FilterPanel.module.css";
 
 export interface FilterState {
+  [key: string]: string[] | undefined;
   make?: string[];
   color?: string[];
 }

@@ -11,18 +11,35 @@ import styles from "./App.module.css";
 export default function App() {
   const [searchZip, setSearchZip] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [zip, setZip] = useState<string>("");
   const [filters, setFilters] = useState<FilterState>({});
   const [sortBy, setSortBy] = useState<string>("");
 
+  const validateZip = (value: string) => {
+    if (!value.trim()) {
+      return "Please enter a ZIP code.";
+    }
+    if (!isValidZip(value)) {
+      if (!/^\d+$/.test(value)) {
+        return "ZIP must be numeric.";
+      }
+      return "Enter a valid 5-digit ZIP code.";
+    }
+    return null;
+  };
+
+  const onZipChange = (value: string) => {
+    setZip(value);
+    if (error) setError("");
+  };
+
   const onSearch = (enteredZip: string) => {
-    setError("");
-    if (!enteredZip) {
-      setError("Please enter a ZIP code.");
+    const validationError = validateZip(enteredZip);
+    if (validationError) {
+      setError(validationError);
       return;
     }
-    if (!isValidZip(enteredZip)) {
-      setError("Invalid ZIP code. Please enter a 5-digit ZIP code.");
-    }
+    setError("");
     setSearchZip(enteredZip);
   };
 
@@ -59,7 +76,7 @@ export default function App() {
         </div>
 
         <div className={styles["header-right"]}>
-          <SearchBar onSearch={onSearch} />
+          <SearchBar zip={zip} onZipChange={onZipChange} onSearch={onSearch} />
         </div>
       </header>
 

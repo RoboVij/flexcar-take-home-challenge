@@ -8,13 +8,13 @@ interface Props {
 
 export default function FilterChips({ filters, setFilters }: Props) {
   const entries = Object.entries(filters).flatMap(([type, values]) =>
-    (values ?? []).map((v) => ({ type, value: v }))
+    (values ?? []).map((v: string) => ({ type, value: v }))
   );
 
   if (!entries.length) return null;
 
   const remove = (type: string, value: string) => {
-    const cur = (filters as any)[type] ?? [];
+    const cur = (filters[type] as string[] ?? []);
     const next = cur.filter((x: string) => x !== value);
     setFilters({ ...filters, [type]: next });
   };

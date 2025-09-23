@@ -21,10 +21,11 @@ This repo is a complete React + TypeScript + Vite frontend implementing the take
 
 - ZIP validation accepts 5-digit US ZIPs only.
 - The inventory is a hardcoded list of 25 vehicles in `src/data/vehicles.ts` as requested. For a large list, pagination/ infinite scrolling/ windowing/ list virtualisation could be implemented. But for the scope of this task, it's not done.
-- Images use Unsplash URLs for visual clarity. When images don't work, a fallback is shown.
+- Images are being fetched from online sources. They don't always match the vehicle. Could be considered as placeholders. When images don't work, a fallback is shown.
 - Design of filters, sorting, vehicle list is similar to the reference Website provided in the PDF file.
 - No network calls are made.
 - Theme color has been used limitedly, since its not contrasty enough.
+- Only basic unit tests are addded.
 
 ## Setup / Run
 
