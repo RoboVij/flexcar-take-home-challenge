@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import styles from "./SortDropdown.module.css";
 
 const options = [
   { value: "price-low", label: "Price: Low → High" },
@@ -39,10 +40,10 @@ export default function SortDropdown({
   }, []);
 
   return (
-    <div className="custom-dropdown" ref={ref}>
+  <div className={styles["custom-dropdown"]} ref={ref}>
       <button
         type="button"
-        className="dropdown-toggle"
+        className={styles["dropdown-toggle"]}
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
@@ -54,7 +55,7 @@ export default function SortDropdown({
       </button>
 
       {open && (
-        <ul className="dropdown-list" role="listbox" aria-label="Sort options">
+        <ul className={styles["dropdown-list"]} role="listbox" aria-label="Sort options">
           {options.map((o) => (
             <li key={o.value}>
               <button
@@ -65,7 +66,7 @@ export default function SortDropdown({
                   setSortBy(o.value);
                   setOpen(false);
                 }}
-                className={sortBy === o.value ? "selected" : undefined}
+                className={sortBy === o.value ? styles["selected"] : undefined}
               >
                 {o.label}
               </button>

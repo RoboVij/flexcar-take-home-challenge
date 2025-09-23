@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { Vehicle } from "../types";
 import FilterChips from "./FilterChips";
+import styles from "./FilterPanel.module.css";
 
 export interface FilterState {
   make?: string[];
@@ -18,14 +19,10 @@ interface Props {
 const COLORS: Record<string, string> = {
   White: "#ffffff",
   Black: "#000000",
-  Blue: "#1E90FF",
   Red: "#e63946",
   Gray: "#808080",
   Silver: "#c0c0c0",
-  Green: "#2a9d8f",
   Brown: "#8b5e3c",
-  Gold: "#d4af37",
-  Yellow: "#f6e05e",
 };
 
 function slugify(s: string) {
@@ -91,11 +88,11 @@ export default function FilterPanel({
   };
 
   return (
-    <div className="filter-panel">
-      <div className="filter-panel-header">
-        <h2 className="filter-panel-title">Filters</h2>
+    <div className={styles["filter-panel"]}>
+      <div className={styles["filter-panel-header"]}>
+        <h2 className={styles["filter-panel-title"]}>Filters</h2>
         <button
-          className="clear-all"
+          className={styles["clear-all"]}
           onClick={() => setFilters({})}
           aria-label="Clear all filters"
         >
@@ -104,9 +101,11 @@ export default function FilterPanel({
       </div>
       <FilterChips filters={filters} setFilters={setFilters} />
 
-      <div className={`accordion-section ${openSections.make ? "open" : ""}`}>
+      <div
+        className={`${styles["accordion-section"]} ${openSections.make ? styles["open"] : ""}`}
+      >
         <button
-          className="accordion-toggle"
+          className={styles["accordion-toggle"]}
           aria-expanded={!!openSections.make}
           aria-controls="panel-make"
           onClick={() => toggleSection("make")}
@@ -117,7 +116,7 @@ export default function FilterPanel({
             width="18"
             height="18"
             viewBox="0 0 24 24"
-            className="chev"
+            className={styles["chev"]}
           >
             <path
               d="M7 10l5 5 5-5"
@@ -130,7 +129,7 @@ export default function FilterPanel({
 
         <div
           id="panel-make"
-          className="accordion-panel"
+          className={styles["accordion-panel"]}
           hidden={!openSections.make}
         >
           <ul>
@@ -145,7 +144,7 @@ export default function FilterPanel({
                       checked={filters.make?.includes(name) ?? false}
                       onChange={() => toggleValue("make", name)}
                     />
-                    <span className="label-text">
+                    <span className={styles["label-text"]}>
                       {name}
                       {searchZip ? ` (${count})` : ""}
                     </span>
@@ -157,9 +156,11 @@ export default function FilterPanel({
         </div>
       </div>
 
-      <div className={`accordion-section ${openSections.color ? "open" : ""}`}>
+      <div
+        className={`${styles["accordion-section"]} ${openSections.color ? styles["open"] : ""}`}
+      >
         <button
-          className="accordion-toggle"
+          className={styles["accordion-toggle"]}
           aria-expanded={!!openSections.color}
           aria-controls="panel-color"
           onClick={() => toggleSection("color")}
@@ -170,7 +171,7 @@ export default function FilterPanel({
             width="18"
             height="18"
             viewBox="0 0 24 24"
-            className="chev"
+            className={styles["chev"]}
           >
             <path
               d="M7 10l5 5 5-5"
@@ -183,7 +184,7 @@ export default function FilterPanel({
 
         <div
           id="panel-color"
-          className="accordion-panel"
+          className={styles["accordion-panel"]}
           hidden={!openSections.color}
         >
           <ul>
@@ -191,21 +192,24 @@ export default function FilterPanel({
               const id = `color-${slugify(name)}`;
               return (
                 <li key={name}>
-                  <label htmlFor={id} className="color-label color-label-main">
-                    <div className="color-label-flex">
+                  <label
+                    htmlFor={id}
+                    className={`${styles["color-label"]} ${styles["color-label-main"]}`}
+                  >
+                    <div className={styles["color-label-flex"]}>
                       <input
                         id={id}
                         type="checkbox"
                         checked={filters.color?.includes(name) ?? false}
                         onChange={() => toggleValue("color", name)}
                       />
-                      <span className="label-text">
+                      <span className={styles["label-text"]}>
                         {name}
                         {searchZip && count > 0 ? ` (${count})` : ""}
                       </span>
                     </div>
                     <span
-                      className="color-swatch color-swatch-main"
+                      className={`${styles["color-swatch"]} ${styles["color-swatch-main"]}`}
                       aria-hidden
                       style={{ background: COLORS[name] ?? "#ccc" }}
                     />
@@ -215,8 +219,10 @@ export default function FilterPanel({
             })}
             {colors.others.length > 0 && (
               <li key="others">
-                <label className="color-label color-label-others">
-                  <div className="color-label-flex">
+                <label
+                  className={`${styles["color-label"]} ${styles["color-label-others"]}`}
+                >
+                  <div className={styles["color-label-flex"]}>
                     <input
                       id="color-others"
                       type="checkbox"
@@ -238,7 +244,7 @@ export default function FilterPanel({
                         setFilters({ ...filters, color: next });
                       }}
                     />
-                    <span className="label-text">
+                    <span className={styles["label-text"]}>
                       Others
                       {searchZip &&
                       colors.others.reduce((acc, o) => acc + o.count, 0) > 0
@@ -246,11 +252,11 @@ export default function FilterPanel({
                         : ""}
                     </span>
                   </div>
-                  <div className="color-label-others-row">
+                  <div className={styles["color-label-others-row"]}>
                     {colors.others.map(({ name }) => (
                       <span
                         key={name}
-                        className="color-swatch color-swatch-others"
+                        className={`${styles["color-swatch"]} ${styles["color-swatch-others"]}`}
                         aria-hidden
                         title={name}
                       />

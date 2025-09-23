@@ -1,4 +1,5 @@
 import type { Vehicle } from "../types";
+import styles from "./VehicleCard.module.css";
 
 const PLACEHOLDER =
   "https://placehold.co/800x450?text=No+Image&bg=efefef&fg=6b7280";
@@ -13,11 +14,11 @@ const currency = (n: number) =>
 export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
   return (
     <article
-      className="vehicle-card"
+      className={styles["vehicle-card"]}
       role="listitem"
       aria-labelledby={`title-${vehicle.id}`}
     >
-      <div className="vehicle-image" aria-hidden="true">
+      <div className={styles["vehicle-image"]} aria-hidden="true">
         <img
           src={vehicle.imageUrl}
           alt={`${vehicle.make} ${vehicle.model}`}
@@ -29,17 +30,17 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         />
       </div>
 
-      <div className="vehicle-info">
+      <div className={styles["vehicle-info"]}>
         <h3 id={`title-${vehicle.id}`}>
           {vehicle.year} {vehicle.make} {vehicle.model}
         </h3>
 
-        <p className="meta">
+        <p className={styles["meta"]}>
           {vehicle.trim ?? ""} · {vehicle.mileage.toLocaleString()} miles ·{" "}
           {vehicle.color}
         </p>
 
-        <p className="price">{currency(vehicle.price)}</p>
+        <p className={styles["price"]}>{currency(vehicle.price)}</p>
       </div>
     </article>
   );

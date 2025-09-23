@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./SearchBar.module.css";
 
 interface Props {
   onSearch: (zip: string) => void;
@@ -9,7 +10,7 @@ export default function SearchBar({ onSearch }: Props) {
 
   return (
     <form
-      className="search-bar"
+      className={styles["search-bar"]}
       onSubmit={(e) => {
         e.preventDefault();
         onSearch(zip.trim());
@@ -17,7 +18,7 @@ export default function SearchBar({ onSearch }: Props) {
       role="search"
       aria-label="Search by ZIP code"
     >
-      <label htmlFor="zip" className="visually-hidden">
+      <label htmlFor="zip" className={styles["visually-hidden"]}>
         ZIP code
       </label>
       <input
@@ -29,8 +30,9 @@ export default function SearchBar({ onSearch }: Props) {
         inputMode="numeric"
         pattern="\d*"
         aria-label="ZIP code"
+        className={styles["search-bar-input"]}
       />
-      <button type="submit" className="primary" aria-label="Search">
+      <button type="submit" className={styles["primary"]} aria-label="Search">
         Search
       </button>
     </form>

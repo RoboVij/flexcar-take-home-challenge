@@ -1,4 +1,5 @@
 import type { FilterState } from "./FilterPanel";
+import styles from "./FilterChips.module.css";
 
 interface Props {
   filters: FilterState;
@@ -19,14 +20,22 @@ export default function FilterChips({ filters, setFilters }: Props) {
   };
 
   return (
-    <div className="filter-chips" role="toolbar" aria-label="Active filters">
+    <div
+      className={styles["filter-chips"]}
+      role="toolbar"
+      aria-label="Active filters"
+    >
       {entries.map(({ type, value }) => (
-        <span key={`${type}-${value}`} className="chip" aria-pressed="false">
-          <span className="chip-label">{value}</span>
+        <span
+          key={`${type}-${value}`}
+          className={styles["chip"]}
+          aria-pressed="false"
+        >
+          <span className={styles["chip-label"]}>{value}</span>
           <button
             aria-label={`Remove filter ${value}`}
             onClick={() => remove(type, value)}
-            className="chip-close"
+            className={styles["chip-close"]}
           >
             ×
           </button>
