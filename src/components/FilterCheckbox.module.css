@@ -1,0 +1,30 @@
+.filter-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter-label:hover {
+  background-color: #f8f9fa;
+}
+
+.filter-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.filter-checkbox {
+  margin: 0;
+  cursor: pointer;
+}
+
+.label-text {
+  font-size: 14px;
+  color: #374151;
+  user-select: none;
+}

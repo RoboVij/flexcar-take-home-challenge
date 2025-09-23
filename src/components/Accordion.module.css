@@ -1,0 +1,39 @@
+/* Copy accordion styles from FilterPanel.module.css */
+.accordion-section {
+  border-bottom: 1px solid var(--border);
+}
+
+.accordion-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+}
+
+.accordion-toggle:hover {
+  color: var(--primary);
+}
+
+.chev {
+  transition: transform 0.2s ease;
+  color: #666;
+}
+
+.open .chev {
+  transform: rotate(180deg);
+}
+
+.accordion-panel {
+  padding-bottom: 16px;
+}
+
+.accordion-panel[hidden] {
+  display: none;
+}
