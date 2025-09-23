@@ -1,12 +1,12 @@
+import { useState } from "react";
 import styles from "./SearchBar.module.css";
 
 interface Props {
-  zip: string;
-  onZipChange: (zip: string) => void;
   onSearch: (zip: string) => void;
 }
 
-export default function SearchBar({ zip, onZipChange, onSearch }: Props) {
+export default function SearchBar({ onSearch }: Props) {
+  const [zip, setZip] = useState<string>("");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch(zip.trim());
@@ -27,7 +27,7 @@ export default function SearchBar({ zip, onZipChange, onSearch }: Props) {
         name="zip"
         placeholder="ZIP (e.g. 10001, 94105)"
         value={zip}
-        onChange={(e) => onZipChange(e.target.value)}
+        onChange={(e) => setZip(e.target.value)}
         aria-label="ZIP code"
         className={styles["search-bar-input"]}
       />

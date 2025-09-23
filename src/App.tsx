@@ -5,36 +5,17 @@ import SearchBar from "./components/SearchBar";
 import FilterPanel, { type FilterState } from "./components/FilterPanel";
 import VehicleCard from "./components/VehicleCard";
 import SortDropdown from "./components/SortDropdown";
-import { isValidZip } from "./utils/validation";
+import { isValidZip, getZipValidationError } from "./utils/validation";
 import styles from "./App.module.css";
 
 export default function App() {
   const [searchZip, setSearchZip] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [zip, setZip] = useState<string>("");
   const [filters, setFilters] = useState<FilterState>({});
   const [sortBy, setSortBy] = useState<string>("");
 
-  const validateZip = (value: string) => {
-    if (!value.trim()) {
-      return "Please enter a ZIP code.";
-    }
-    if (!isValidZip(value)) {
-      if (!/^\d+$/.test(value)) {
-        return "ZIP must be numeric.";
-      }
-      return "Enter a valid 5-digit ZIP code.";
-    }
-    return null;
-  };
-
-  const onZipChange = (value: string) => {
-    setZip(value);
-    if (error) setError("");
-  };
-
   const onSearch = (enteredZip: string) => {
-    const validationError = validateZip(enteredZip);
+    const validationError = getZipValidationError(enteredZip);
     if (validationError) {
       setError(validationError);
       return;
@@ -44,10 +25,12 @@ export default function App() {
   };
 
   const zipResults = useMemo<Vehicle[]>(() => {
-    if (!searchZip) return [];
-    const list = VEHICLES.filter((v) => v.zip === searchZip);
+    // Show all vehicles on initial load
+    if (searchZip === "") return VEHICLES;
+    // If searched for empty string, show no vehicles
+    if (searchZip.trim() === "") return [];
 
-    return list;
+    return VEHICLES.filter((v) => v.zip === searchZip);
   }, [searchZip]);
 
   const results = useMemo<Vehicle[]>(() => {
@@ -76,7 +59,7 @@ export default function App() {
         </div>
 
         <div className={styles["header-right"]}>
-          <SearchBar zip={zip} onZipChange={onZipChange} onSearch={onSearch} />
+          <SearchBar onSearch={onSearch} />
         </div>
       </header>
 
@@ -99,39 +82,34 @@ export default function App() {
             filters={filters}
             setFilters={setFilters}
             results={zipResults}
-            searchZip={searchZip}
           />
         </aside>
 
         <section className={styles["results"]} aria-live="polite">
-          {error && (
+          {error ? (
             <div className={styles["error"]} role="alert">
               {error}
             </div>
+          ) : (
+            <div className={styles["results-body"]}>
+              {isValidZip(searchZip) && results.length === 0 ? (
+                <div className={styles["empty"]} role="status">
+                  No vehicles found for ZIP {searchZip}
+                  <span>
+                    {filters.make?.length || filters.color?.length
+                      ? " with the selected filters."
+                      : "."}
+                  </span>
+                </div>
+              ) : (
+                <div className={styles["grid"]} role="list">
+                  {results.map((v) => (
+                    <VehicleCard key={v.id} vehicle={v} />
+                  ))}
+                </div>
+              )}
+            </div>
           )}
-
-          <div className={styles["results-body"]}>
-            {!searchZip ? (
-              <div className={styles["callout"]}>
-                Enter a ZIP code above to find vehicles near you.
-              </div>
-            ) : isValidZip(searchZip) && results.length === 0 ? (
-              <div className={styles["empty"]} role="status">
-                No vehicles found for ZIP {searchZip}
-                <span>
-                  {filters.make?.length || filters.color?.length
-                    ? "with the selected filters."
-                    : "."}
-                </span>
-              </div>
-            ) : (
-              <div className={styles["grid"]} role="list">
-                {results.map((v) => (
-                  <VehicleCard key={v.id} vehicle={v} />
-                ))}
-              </div>
-            )}
-          </div>
         </section>
       </main>
     </div>

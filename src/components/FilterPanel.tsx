@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import type { Vehicle } from "../types";
 import FilterChips from "./FilterChips";
 import styles from "./FilterPanel.module.css";
+import COLORS from "../constants/colors";
 
 export interface FilterState {
   [key: string]: string[] | undefined;
@@ -14,17 +15,7 @@ interface Props {
   filters: FilterState;
   setFilters: (f: FilterState) => void;
   results: Vehicle[];
-  searchZip: string;
 }
-
-const COLORS: Record<string, string> = {
-  White: "#ffffff",
-  Black: "#000000",
-  Red: "#e63946",
-  Gray: "#808080",
-  Silver: "#c0c0c0",
-  Brown: "#8b5e3c",
-};
 
 function slugify(s: string) {
   return s
@@ -38,7 +29,6 @@ export default function FilterPanel({
   filters,
   setFilters,
   results,
-  searchZip,
 }: Props) {
   // Use results and searchZip from props for correct counts
   const makes = useMemo(() => {
@@ -92,13 +82,15 @@ export default function FilterPanel({
     <div className={styles["filter-panel"]}>
       <div className={styles["filter-panel-header"]}>
         <h2 className={styles["filter-panel-title"]}>Filters</h2>
-        <button
-          className={styles["clear-all"]}
-          onClick={() => setFilters({})}
-          aria-label="Clear all filters"
-        >
-          Clear all
-        </button>
+        {Object.values(filters).some((arr) => arr && arr.length > 0) && (
+          <button
+            className={styles["clear-all"]}
+            onClick={() => setFilters({})}
+            aria-label="Clear all filters"
+          >
+            Clear all
+          </button>
+        )}
       </div>
       <FilterChips filters={filters} setFilters={setFilters} />
 
@@ -146,8 +138,7 @@ export default function FilterPanel({
                       onChange={() => toggleValue("make", name)}
                     />
                     <span className={styles["label-text"]}>
-                      {name}
-                      {searchZip ? ` (${count})` : ""}
+                      {`${name} (${count})`}
                     </span>
                   </label>
                 </li>
@@ -205,8 +196,7 @@ export default function FilterPanel({
                         onChange={() => toggleValue("color", name)}
                       />
                       <span className={styles["label-text"]}>
-                        {name}
-                        {searchZip && count > 0 ? ` (${count})` : ""}
+                        {`${name} (${count})`}
                       </span>
                     </div>
                     <span
@@ -247,8 +237,7 @@ export default function FilterPanel({
                     />
                     <span className={styles["label-text"]}>
                       Others
-                      {searchZip &&
-                      colors.others.reduce((acc, o) => acc + o.count, 0) > 0
+                      {colors.others.reduce((acc, o) => acc + o.count, 0) > 0
                         ? ` (${colors.others.reduce((acc, o) => acc + o.count, 0)})`
                         : ""}
                     </span>

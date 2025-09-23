@@ -40,7 +40,6 @@ describe("FilterPanel", () => {
         filters={filters}
         setFilters={setFilters}
         results={vehicles}
-        searchZip="10001"
       />
     );
     expect(screen.getByText("Toyota")).toBeInTheDocument();
