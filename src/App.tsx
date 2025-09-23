@@ -4,11 +4,27 @@ import SearchBar from "./components/SearchBar";
 import type { Vehicle } from "./types";
 import { VEHICLES } from "./data/vehicles";
 import VehicleCard from "./components/VehicleCard";
+import Filters from "./components/Filters";
+import { isValidZip } from "./utils.ts/validation";
+
+function uniqueSorted<T>(arr: T[], keyFn: (a: T) => string) {
+  return Array.from(new Set(arr.map(keyFn))).sort();
+}
 
 function App() {
   const [zip, setZip] = useState("");
   const [searchZip, setSearchZip] = useState("");
   const [error, setError] = useState("");
+  const [selectedMake, setSelectedMake] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [sortBy, setSortBy] = useState("");
+
+  const makes = useMemo(() => {
+    return uniqueSorted(VEHICLES, (v) => v.make);
+  }, []);
+  const colors = useMemo(() => {
+    return uniqueSorted(VEHICLES, (v) => v.color);
+  }, []);
 
   const onSearch = (enteredZip: string) => {
     setError("");
@@ -16,15 +32,36 @@ function App() {
       setError("Please enter a ZIP code.");
       return;
     }
+    if (!isValidZip(enteredZip)) {
+      setError("Invalid ZIP code. Please enter a 5-digit ZIP code.");
+      return;
+    }
     setSearchZip(enteredZip);
     setZip(enteredZip);
+    // reset filters on new search
+    setSelectedMake("");
+    setSelectedColor("");
+    setSortBy("");
   };
 
   const results = useMemo<Vehicle[]>(() => {
     if (!searchZip) return [];
     let list = VEHICLES.filter((v) => v.zip === searchZip);
+    if (selectedMake) {
+      list = list.filter((v) => v.make === selectedMake);
+    }
+    if (selectedColor) {
+      list = list.filter((v) => v.color === selectedColor);
+    }
+    if (sortBy === "price-high") {
+      list = list.slice().sort((a, b) => b.price - a.price);
+    } else if (sortBy === "price-low") {
+      list = list.slice().sort((a, b) => a.price - b.price);
+    } else if (sortBy === "model") {
+      list = list.slice().sort((a, b) => a.model.localeCompare(b.model));
+    }
     return list;
-  }, [searchZip]);
+  }, [searchZip, selectedMake, selectedColor, sortBy]);
 
   return (
     <div className="app">
@@ -41,6 +78,19 @@ function App() {
               {error}
             </div>
           )}
+        </section>
+
+        <section className="filters-section">
+          <Filters
+            makes={makes}
+            colors={colors}
+            selectedMake={selectedMake}
+            selectedColor={selectedColor}
+            sortBy={sortBy}
+            onMakeChange={setSelectedMake}
+            onColorChange={setSelectedColor}
+            onSortChange={setSortBy}
+          />
         </section>
 
         <section className="results-section">
