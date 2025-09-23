@@ -10,7 +10,8 @@ export const VEHICLES: Vehicle[] = [
     color: "White",
     mileage: 15000,
     price: 17995,
-    imageUrl: "https://source.unsplash.com/800x450/?toyota,corolla",
+    imageUrl:
+      "https://images.pexels.com/photos/17357674/pexels-photo-17357674.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "10001",
   },
   {
@@ -22,7 +23,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Gray",
     mileage: 24000,
     price: 20995,
-    imageUrl: "https://source.unsplash.com/800x450/?toyota,camry",
+    imageUrl:
+      "https://images.pexels.com/photos/28688908/pexels-photo-28688908.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "10001",
   },
   {
@@ -34,7 +36,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Red",
     mileage: 10000,
     price: 28995,
-    imageUrl: "https://source.unsplash.com/800x450/?toyota,rav4",
+    imageUrl:
+      "https://images.pexels.com/photos/20079552/pexels-photo-20079552.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "94105",
   },
   {
@@ -46,7 +49,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Blue",
     mileage: 18000,
     price: 19995,
-    imageUrl: "https://source.unsplash.com/800x450/?honda,civic",
+    imageUrl:
+      "https://images.pexels.com/photos/17363998/pexels-photo-17363998.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "10001",
   },
   {
@@ -58,7 +62,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Black",
     mileage: 35000,
     price: 18995,
-    imageUrl: "https://source.unsplash.com/800x450/?honda,accord",
+    imageUrl:
+      "https://images.pexels.com/photos/11191686/pexels-photo-11191686.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "02139",
   },
   {
@@ -70,7 +75,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Silver",
     mileage: 22000,
     price: 25995,
-    imageUrl: "https://source.unsplash.com/800x450/?honda,crv",
+    imageUrl:
+      "https://images.pexels.com/photos/17205720/pexels-photo-17205720.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "02139",
   },
   {
@@ -82,7 +88,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Red",
     mileage: 30000,
     price: 30995,
-    imageUrl: "https://source.unsplash.com/800x450/?ford,mustang",
+    imageUrl:
+      "https://images.pexels.com/photos/9957865/pexels-photo-9957865.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "94105",
   },
   {
@@ -94,7 +101,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Blue",
     mileage: 45000,
     price: 28995,
-    imageUrl: "https://source.unsplash.com/800x450/?ford,f150",
+    imageUrl:
+      "https://images.pexels.com/photos/1077785/pexels-photo-1077785.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "60611",
   },
   {
@@ -106,7 +114,8 @@ export const VEHICLES: Vehicle[] = [
     color: "White",
     mileage: 12000,
     price: 26995,
-    imageUrl: "https://source.unsplash.com/800x450/?ford,escape",
+    imageUrl:
+      "https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "60611",
   },
   {
@@ -118,7 +127,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Black",
     mileage: 28000,
     price: 18995,
-    imageUrl: "https://source.unsplash.com/800x450/?chevrolet,malibu",
+    imageUrl:
+      "https://images.pexels.com/photos/14136562/pexels-photo-14136562.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "10001",
   },
   {
@@ -129,8 +139,9 @@ export const VEHICLES: Vehicle[] = [
     year: 2019,
     color: "Silver",
     mileage: 34000,
-    price: 22995,
-    imageUrl: "https://source.unsplash.com/800x450/?chevrolet,equinox",
+    price: 20995,
+    imageUrl:
+      "https://images.pexels.com/photos/14136562/pexels-photo-14136562.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "10001",
   },
   {
@@ -142,7 +153,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Gray",
     mileage: 8000,
     price: 31995,
-    imageUrl: "https://source.unsplash.com/800x450/?chevrolet,bolt",
+    imageUrl:
+      "https://images.pexels.com/photos/29653407/pexels-photo-29653407.jpeg",
     zip: "94105",
   },
   {
@@ -154,7 +166,8 @@ export const VEHICLES: Vehicle[] = [
     color: "White",
     mileage: 12000,
     price: 41995,
-    imageUrl: "https://source.unsplash.com/800x450/?tesla,model-3",
+    imageUrl:
+      "https://images.pexels.com/photos/9300916/pexels-photo-9300916.jpeg",
     zip: "10001",
   },
   {
@@ -166,7 +179,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Black",
     mileage: 5000,
     price: 52995,
-    imageUrl: "https://source.unsplash.com/800x450/?tesla,model-y",
+    imageUrl:
+      "https://images.pexels.com/photos/19235826/pexels-photo-19235826.jpeg",
     zip: "10001",
   },
   {
@@ -178,7 +192,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Blue",
     mileage: 20000,
     price: 35995,
-    imageUrl: "https://source.unsplash.com/800x450/?bmw,3-series",
+    imageUrl:
+      "https://images.pexels.com/photos/28522339/pexels-photo-28522339.jpeg",
     zip: "94105",
   },
   {
@@ -190,7 +205,8 @@ export const VEHICLES: Vehicle[] = [
     color: "White",
     mileage: 32000,
     price: 46995,
-    imageUrl: "https://source.unsplash.com/800x450/?bmw,x5",
+    imageUrl:
+      "https://images.pexels.com/photos/7762700/pexels-photo-7762700.jpeg",
     zip: "02139",
   },
   {
@@ -202,7 +218,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Gray",
     mileage: 25000,
     price: 39995,
-    imageUrl: "https://source.unsplash.com/800x450/?mercedes,c-class",
+    imageUrl:
+      "https://images.pexels.com/photos/17878183/pexels-photo-17878183.jpeg",
     zip: "02139",
   },
   {
@@ -214,7 +231,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Black",
     mileage: 15000,
     price: 55995,
-    imageUrl: "https://source.unsplash.com/800x450/?mercedes,gle",
+    imageUrl:
+      "https://images.pexels.com/photos/14719377/pexels-photo-14719377.jpeg",
     zip: "60611",
   },
   {
@@ -226,7 +244,8 @@ export const VEHICLES: Vehicle[] = [
     color: "White",
     mileage: 36000,
     price: 15995,
-    imageUrl: "https://source.unsplash.com/800x450/?volkswagen,jetta",
+    imageUrl:
+      "https://images.pexels.com/photos/26348266/pexels-photo-26348266.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "10001",
   },
   {
@@ -238,67 +257,8 @@ export const VEHICLES: Vehicle[] = [
     color: "Silver",
     mileage: 17000,
     price: 25995,
-    imageUrl: "https://source.unsplash.com/800x450/?volkswagen,tiguan",
+    imageUrl:
+      "https://images.pexels.com/photos/14038627/pexels-photo-14038627.jpeg?auto=compress&fit=crop&w=800&q=80",
     zip: "94105",
-  },
-  {
-    id: "21",
-    make: "Volvo",
-    model: "XC60",
-    trim: "Momentum",
-    year: 2020,
-    color: "Gray",
-    mileage: 21000,
-    price: 38995,
-    imageUrl: "https://source.unsplash.com/800x450/?volvo,xc60",
-    zip: "10001",
-  },
-  {
-    id: "22",
-    make: "Volvo",
-    model: "XC90",
-    trim: "T6",
-    year: 2021,
-    color: "Black",
-    mileage: 14000,
-    price: 48995,
-    imageUrl: "https://source.unsplash.com/800x450/?volvo,xc90",
-    zip: "02139",
-  },
-  {
-    id: "23",
-    make: "Nissan",
-    model: "Altima",
-    trim: "SV",
-    year: 2019,
-    color: "Red",
-    mileage: 38000,
-    price: 16995,
-    imageUrl: "https://source.unsplash.com/800x450/?nissan,altima",
-    zip: "60611",
-  },
-  {
-    id: "24",
-    make: "Nissan",
-    model: "Rogue",
-    trim: "SL",
-    year: 2022,
-    color: "Blue",
-    mileage: 9000,
-    price: 26995,
-    imageUrl: "https://source.unsplash.com/800x450/?nissan,rogue",
-    zip: "94105",
-  },
-  {
-    id: "25",
-    make: "Hyundai",
-    model: "Elantra",
-    trim: "SEL",
-    year: 2021,
-    color: "White",
-    mileage: 16000,
-    price: 17995,
-    imageUrl: "https://source.unsplash.com/800x450/?hyundai,elantra",
-    zip: "02139",
   },
 ];

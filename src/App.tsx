@@ -22,10 +22,8 @@ export default function App() {
     }
     if (!isValidZip(enteredZip)) {
       setError("Invalid ZIP code. Please enter a 5-digit ZIP code.");
-      return;
     }
     setSearchZip(enteredZip);
-    setSortBy("");
   };
 
   const zipResults = useMemo<Vehicle[]>(() => {
@@ -96,22 +94,24 @@ export default function App() {
           )}
 
           <div className={styles["results-body"]}>
-            {searchZip ? (
-              results.length === 0 ? (
-                <div className={styles["empty"]} role="status">
-                  No vehicles found for ZIP {searchZip} with the selected
-                  filters.
-                </div>
-              ) : (
-                <div className={styles["grid"]} role="list">
-                  {results.map((v) => (
-                    <VehicleCard key={v.id} vehicle={v} />
-                  ))}
-                </div>
-              )
-            ) : (
+            {!searchZip ? (
               <div className={styles["callout"]}>
                 Enter a ZIP code above to find vehicles near you.
+              </div>
+            ) : isValidZip(searchZip) && results.length === 0 ? (
+              <div className={styles["empty"]} role="status">
+                No vehicles found for ZIP {searchZip}
+                <span>
+                  {filters.make?.length || filters.color?.length
+                    ? "with the selected filters."
+                    : "."}
+                </span>
+              </div>
+            ) : (
+              <div className={styles["grid"]} role="list">
+                {results.map((v) => (
+                  <VehicleCard key={v.id} vehicle={v} />
+                ))}
               </div>
             )}
           </div>

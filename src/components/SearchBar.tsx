@@ -24,7 +24,7 @@ export default function SearchBar({ onSearch }: Props) {
       <input
         id="zip"
         name="zip"
-        placeholder="ZIP (e.g. 10001)"
+        placeholder="ZIP (e.g. 10001, 94105)"
         value={zip}
         onChange={(e) => setZip(e.target.value)}
         inputMode="numeric"

@@ -22,6 +22,7 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
         <img
           src={vehicle.imageUrl}
           alt={`${vehicle.make} ${vehicle.model}`}
+          loading="lazy"
           onError={(e) => {
             // replace broken images with a placeholder
             (e.currentTarget as HTMLImageElement).src = PLACEHOLDER;
@@ -32,7 +33,7 @@ export default function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
 
       <div className={styles["vehicle-info"]}>
         <h3 id={`title-${vehicle.id}`}>
-          {vehicle.year} {vehicle.make} {vehicle.model}
+          {vehicle.year} · {vehicle.make} {vehicle.model}
         </h3>
 
         <p className={styles["meta"]}>
