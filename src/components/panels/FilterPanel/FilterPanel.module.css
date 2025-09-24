@@ -25,20 +25,6 @@
   margin: 0;
   padding: 0;
 }
-.filter-panel input[type="checkbox"] {
-  accent-color: var(--theme);
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  background: #fff;
-  cursor: pointer;
-  box-shadow: none;
-  transition: border-color 0.2s;
-}
-.filter-panel input[type="checkbox"]:hover {
-  cursor: pointer;
-  box-shadow: 0 0 0 2px var(--theme);
-}
 
 .clear-all {
   background: #222;
@@ -55,6 +41,7 @@
     background 0.2s,
     color 0.2s;
 }
+
 .clear-all:hover {
   background: var(--theme);
   color: #222;

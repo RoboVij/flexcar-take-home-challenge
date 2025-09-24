@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
-import { VEHICLES } from "./data/vehicles";
-import type { Vehicle } from "./types";
-import SearchBar from "./components/SearchBar";
-import FilterPanel, { type FilterState } from "./components/FilterPanel";
-import VehicleCard from "./components/VehicleCard";
-import SortDropdown from "./components/SortDropdown";
-import { isValidZip, getZipValidationError } from "./utils/validation";
+import { VEHICLES } from "@/data/vehicles";
+import type { Vehicle } from "@/types";
+import SearchBar from "@/components/forms/SearchBar/SearchBar";
+import FilterPanel, {
+  type FilterState,
+} from "@/components/panels/FilterPanel/FilterPanel";
+import VehicleCard from "@/components/cards/VehicleCard/VehicleCard";
+import SortDropdown from "@/components/ui/SortDropdown/SortDropdown";
+import { isValidZip, getZipValidationError } from "@/utils/validation";
 import styles from "./App.module.css";
 
 export default function App() {
@@ -41,15 +43,18 @@ export default function App() {
     if (filters.color?.length)
       list = list.filter((v) => filters.color!.includes(v.color));
 
-    if (sortBy === "price-high")
-      list = [...list].sort((a, b) => b.price - a.price);
-    else if (sortBy === "price-low")
-      list = [...list].sort((a, b) => a.price - b.price);
-    else if (sortBy === "model")
-      list = [...list].sort((a, b) => a.model.localeCompare(b.model));
-
     return list;
-  }, [zipResults, filters, sortBy]);
+  }, [zipResults, filters]);
+
+  const sortedResults = useMemo<Vehicle[]>(() => {
+    if (sortBy === "price-high")
+      return [...results].sort((a, b) => b.price - a.price);
+    else if (sortBy === "price-low")
+      return [...results].sort((a, b) => a.price - b.price);
+    else if (sortBy === "model")
+      return [...results].sort((a, b) => a.model.localeCompare(b.model));
+    return results;
+  }, [results, sortBy]);
 
   return (
     <div className={styles["app"]}>
@@ -63,17 +68,14 @@ export default function App() {
         </div>
       </header>
 
-      {searchZip && (
-        <div className={styles["results-top"]} aria-hidden={false}>
-          <h2 className={styles["results-title"]}>
-            {`Results for ${searchZip} (${results.length})`}
-          </h2>
-
-          <div className={styles["results-top-actions"]}>
-            <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
-          </div>
+      <div className={styles["results-top"]} aria-hidden={false}>
+        <h2 className={styles["results-title"]}>
+          {searchZip ? `Results for ${searchZip} (${results.length})` : ""}
+        </h2>
+        <div className={styles["results-top-actions"]}>
+          <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
         </div>
-      )}
+      </div>
 
       <main className={styles["layout"]} role="main">
         <aside className={styles["sidebar"]} aria-label="Filters">
@@ -103,7 +105,7 @@ export default function App() {
                 </div>
               ) : (
                 <div className={styles["grid"]} role="list">
-                  {results.map((v) => (
+                  {sortedResults.map((v) => (
                     <VehicleCard key={v.id} vehicle={v} />
                   ))}
                 </div>

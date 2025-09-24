@@ -1,6 +1,6 @@
-import type { Vehicle } from "../types";
-import FilterChips from "./FilterChips";
-import FilterSection from "./FilterSection";
+import type { Vehicle } from "@/types";
+import FilterChips from "@/components/ui/FilterChips/FilterChips";
+import FilterSection from "@/components/ui/FilterSection/FilterSection";
 import styles from "./FilterPanel.module.css";
 
 export interface FilterState {

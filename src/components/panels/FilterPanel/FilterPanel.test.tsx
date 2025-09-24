@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import FilterPanel, { type FilterState } from "./FilterPanel";
-import type { Vehicle } from "../types";
+import type { Vehicle } from "@/types";
 
 describe("FilterPanel", () => {
   const vehicles: Vehicle[] = [

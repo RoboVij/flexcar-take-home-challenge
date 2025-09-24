@@ -9,15 +9,17 @@ interface AccordionProps {
   panelId?: string;
 }
 
-export default function Accordion({ 
-  title, 
-  isOpen, 
-  onToggle, 
-  children, 
-  panelId = `panel-${title.toLowerCase().replace(/\s+/g, '-')}` 
+export default function Accordion({
+  title,
+  isOpen,
+  onToggle,
+  children,
+  panelId = `panel-${title.toLowerCase().replace(/\s+/g, "-")}`,
 }: AccordionProps) {
   return (
-    <div className={`${styles["accordion-section"]} ${isOpen ? styles["open"] : ""}`}>
+    <div
+      className={`${styles["accordion-section"]} ${isOpen ? styles["open"] : ""}`}
+    >
       <button
         className={styles["accordion-toggle"]}
         aria-expanded={isOpen}
@@ -42,11 +44,7 @@ export default function Accordion({
         </svg>
       </button>
 
-      <div
-        id={panelId}
-        className={styles["accordion-panel"]}
-        hidden={!isOpen}
-      >
+      <div id={panelId} className={styles["accordion-panel"]} hidden={!isOpen}>
         {children}
       </div>
     </div>

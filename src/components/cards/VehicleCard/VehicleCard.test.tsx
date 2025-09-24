@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import VehicleCard from "./VehicleCard";
-import type { Vehicle } from "../types";
+import type { Vehicle } from "@/types";
 
 describe("VehicleCard", () => {
   const vehicle: Vehicle = {

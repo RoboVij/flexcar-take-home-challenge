@@ -2,11 +2,18 @@
   --theme: #e8ff00;
   --bg: #f7f7f8;
   --card-bg: #ffffff;
+  --card-bg-alt: #f3f4f6;
   --border: #e6e6e6;
   --text: #0b0b0c;
   --muted: #6b7280;
   --radius: 10px;
   --gap: 16px;
+  --chip-bg: #222;
+  --chip-bg-alt: rgba(0, 0, 0, 0.04);
+  --chip-text: #fff;
+  --error-bg: #fff6f6;
+  --error-border: #ffd6d6;
+  --error-text: #821313;
 }
 
 * {

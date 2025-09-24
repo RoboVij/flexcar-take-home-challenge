@@ -1,11 +1,12 @@
 .custom-dropdown {
   position: relative;
 }
+
 .dropdown-toggle {
   padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: #fff;
+  background: var(--card-bg);
   font-size: 14px;
   color: var(--text);
   cursor: pointer;
@@ -14,12 +15,13 @@
   justify-content: space-between;
   align-items: center;
 }
+
 .dropdown-list {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
   z-index: 40;
-  background: #fff;
+  background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   min-width: 220px;
@@ -29,9 +31,11 @@
   list-style: none;
   overflow: hidden;
 }
+
 .dropdown-list li {
   list-style: none;
 }
+
 .dropdown-list button {
   display: block;
   width: 100%;
@@ -43,9 +47,10 @@
   cursor: pointer;
   border-radius: 0;
 }
+
 .dropdown-list button:hover,
 .dropdown-list button.selected,
 .dropdown-list button[aria-selected="true"] {
   background: var(--theme);
-  color: #000;
+  color: var(--text);
 }

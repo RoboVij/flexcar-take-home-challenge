@@ -1,7 +1,8 @@
-import type { FilterState } from "./FilterPanel";
-import { VEHICLES } from "../data/vehicles";
-import COLORS from "../constants/colors";
+import type { FilterState } from "@/components/panels/FilterPanel/FilterPanel";
+import { VEHICLES } from "@/data/vehicles";
+import COLORS from "@/constants/colors";
 import styles from "./FilterChips.module.css";
+import { useMemo } from "react";
 
 interface Props {
   filters: FilterState;
@@ -9,8 +10,21 @@ interface Props {
 }
 
 export default function FilterChips({ filters, setFilters }: Props) {
-  const entries = Object.entries(filters).flatMap(([type, values]) =>
-    (values ?? []).map((v: string) => ({ type, value: v }))
+  const entries = useMemo(
+    () =>
+      Object.entries(filters).flatMap(([type, values]) =>
+        (values ?? []).map((v: string) => ({ type, value: v }))
+      ),
+    [filters]
+  );
+
+  const mainColors = useMemo(() => Object.keys(COLORS), []);
+  const othersColors = useMemo(
+    () =>
+      Array.from(new Set(VEHICLES.map((v) => v.color))).filter(
+        (c) => !mainColors.includes(c)
+      ),
+    [mainColors]
   );
 
   if (!entries.length) return null;
@@ -20,12 +34,6 @@ export default function FilterChips({ filters, setFilters }: Props) {
     const next = cur.filter((x: string) => x !== value);
     setFilters({ ...filters, [type]: next });
   };
-  // Get all main color names from COLORS constant
-  const mainColors = Object.keys(COLORS);
-  // Get all color names from vehicles that are not main colors
-  const othersColors = Array.from(new Set(VEHICLES.map((v) => v.color))).filter(
-    (c) => !mainColors.includes(c)
-  );
 
   return (
     <div

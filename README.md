@@ -11,7 +11,7 @@ This repo is a complete React + TypeScript + Vite frontend implementing the take
 
 - ZIP code search (client-side, hardcoded vehicle inventory)
 - Vehicle cards with Make, Model, Trim, Year, Color, Mileage, Price, Image
-- Filters for Make and Color (appears on top)
+- Filters for Make and Color
 - Sorting by Price High, Price Low, and Model (A-Z)
 - Responsive UI and theme color **#E8FF00**
 - Error handling for invalid/missing ZIP codes and empty results
@@ -19,10 +19,12 @@ This repo is a complete React + TypeScript + Vite frontend implementing the take
 
 ## Notes / Design decisions
 
+- On initial page load, all vehicles are shown even without a ZIP.
 - ZIP validation accepts 5-digit US ZIPs only.
 - The inventory is a hardcoded list of 20 vehicles in `src/data/vehicles.ts` as requested. For a large list, pagination/ infinite scrolling/ windowing/ list virtualisation could be implemented. But for the scope of this task, it's not done.
-- Images are being fetched from online sources. They don't always match the vehicle. Could be considered as placeholders. When images don't work, a fallback is shown.
-- Design of filters, sorting, vehicle list is similar to the reference Website provided in the PDF file.
+- Images are being fetched from online sources. They don't always match the vehicle or color. Could be considered as placeholders. When images don't work, a fallback placeholder image is shown.
+- Design of filters, sorting, vehicle list is similar to the reference website provided in the PDF file (filters as side panel, not on top).
+- Filter item (make, color) count doesn't update after filtering. It only shows the count based on ZIP results. Similar to how it's implemented in the reference website.
 - No network calls are made.
 - Theme color has been used limitedly, since its not contrasty enough.
 - Only basic unit tests are addded.

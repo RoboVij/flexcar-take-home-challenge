@@ -1,11 +1,11 @@
 import { useState } from "react";
-import type { Vehicle } from "../types";
-import type { FilterState } from "./FilterPanel";
-import Accordion from "./Accordion";
-import FilterCheckbox from "./FilterCheckbox";
-import ColorSwatch from "./ColorSwatch";
+import type { Vehicle } from "@/types";
+import type { FilterState } from "@/components/panels/FilterPanel/FilterPanel";
+import Accordion from "@/components/ui/Accordion/Accordion";
+import FilterCheckbox from "@/components/ui/FilterCheckbox/FilterCheckbox";
+import ColorSwatch from "@/components/ui/ColorSwatch/ColorSwatch";
 import styles from "./FilterSection.module.css";
-import { useFilterData } from "../hooks/useFilterData";
+import { useFilterData } from "@/hooks/useFilterData";
 
 interface FilterSectionProps {
   vehicles: Vehicle[];
@@ -98,7 +98,6 @@ export default function FilterSection({
               checked={filters.color?.includes(name) ?? false}
               onChange={() => toggleFilterValue("color", name)}
               count={count}
-              className={styles["color-filter"]}
             >
               <ColorSwatch color={name} colorHex={COLORS[name]} />
             </FilterCheckbox>
@@ -112,18 +111,8 @@ export default function FilterSection({
               checked={isOthersChecked()}
               onChange={toggleOthersColors}
               count={getOthersCount()}
-              className={styles["color-filter-others"]}
             >
-              <div className={styles["others-swatches"]}>
-                {colors.others.map(({ name }) => (
-                  <ColorSwatch
-                    key={name}
-                    color={name}
-                    size="small"
-                    className={styles["others-swatch"]}
-                  />
-                ))}
-              </div>
+              <ColorSwatch color="Others" />
             </FilterCheckbox>
           )}
         </ul>

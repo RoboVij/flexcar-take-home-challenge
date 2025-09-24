@@ -1,4 +1,4 @@
-import type { Vehicle } from "../types";
+import type { Vehicle } from "@/types";
 import styles from "./VehicleCard.module.css";
 
 const PLACEHOLDER =
